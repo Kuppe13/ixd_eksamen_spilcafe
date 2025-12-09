@@ -243,9 +243,22 @@ function showGameModal(game) {
     <img src="${game.image}" alt="Poster af ${game.title}" class="game-poster">
     <div class="dialog-details">
       <h2>${game.title}</h2>
-      <p class="game-genre">${Array.isArray(game.genre) ? game.genre.join(", ") : game.genre || ""}</p>
-      <p class="game-rating">⭐ ${game.rating}</p>
-      <p class="game-description">${game.description}</p>
+      <p class="game-description"> ${game.description}</p>
+    </div>
+
+    <div class="dialog-info">
+      <p class="game-genre"><strong>Kategori:</strong> ${Array.isArray(game.genre) ? game.genre.join(", ") : game.genre || ""}</p>
+      <p class="game-playtime"><strong>Ca.</strong> ${game.playtime} min.</p>
+      <p class="game-players"><strong>Spillere:</strong> ${game.players.min}-${game.players.max}</p>
+      <p class="game-age"><strong>Alder:</strong> ${game.age}+</p>
+      <p class="game-difficulty"><strong>Sværhedsgrad:</strong> ${game.difficulty}</p>
+      <p class="game-language"><strong>Sprog:</strong> ${game.language}</p>
+      <p class="game-location"><strong>Lokation:</strong> ${game.location}</p>
+      <p class="game-rating"><strong>Rating:</strong> ${game.rating}</p>
+    </div>
+    
+    <div class="dialog-rules">
+      <p class="game-rules"><strong>Regler:</strong> ${game.rules}</p>
     </div>
   `;
 
