@@ -248,7 +248,7 @@ function showGameModal(game) {
 
     <div class="dialog-info">
       <p class="game-genre"><strong>Kategori:</strong> ${Array.isArray(game.genre) ? game.genre.join(", ") : game.genre || ""}</p>
-      <p class="game-playtime"><strong>Ca.</strong> ${game.playtime} min.</p>
+      <p class="game-playtime"><strong>Varighed:</strong> Ca. ${game.playtime} min.</p>
       <p class="game-players"><strong>Spillere:</strong> ${game.players.min}-${game.players.max}</p>
       <p class="game-age"><strong>Alder:</strong> ${game.age}+</p>
       <p class="game-difficulty"><strong>Sværhedsgrad:</strong> ${game.difficulty}</p>
