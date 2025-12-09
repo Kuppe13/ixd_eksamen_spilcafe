@@ -217,7 +217,7 @@ function displayGames(games) {
   gameList.innerHTML = "";
   if (!games || games.length === 0) {
     gameList.innerHTML =
-      '<p class="no-results">Ingen spil matchede dine filtre </p>';
+      '<p class="no-results">Øv! Vi fandt desværre ingen resultater. </p>';
     return;
   }
   for (const game of games) {
