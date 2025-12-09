@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="DA">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="Ida Marie, Bex, Marie Luise & Sofie" />
+    <meta name="author" content="Marie Luise"/>
     <meta name="description" content="Project Template" />
     <link rel="stylesheet" href="app.css" />
     <link rel="icon" href="img/favicon.ico" />
@@ -19,14 +19,14 @@
     <main>
       <!-- Search Bar -->
       <div class="searchbar-container">
-        <input id="search-input" type="search" placeholder="Søg spil..." />
+        <input id="search-input" type="search" placeholder="Søg efter brætspil" />
       </div>
       <!-- Filter Bar -->
       <section class="filterbar">
         <select id="players-select"></select>
-        <select id="genre-select2"></select>
-        <select id="genre-select1"></select>
-        <select id="#genre-select4">
+        <select id="category-select"></select>
+        <select id="playtime-select"></select>
+        <select id="more-select">
           <option value="all">Flere filtre</option>
           <option value="all">Alder</option>
           <option value="all">Sprog</option>
@@ -39,6 +39,7 @@
           <span class="btn-text">Ryd filtre</span>
         </button>
       </section>
+
       <!-- Game List -->
       <section id="game-list">
         <!-- Game cards will be rendered here by JavaScript -->

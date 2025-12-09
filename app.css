@@ -41,7 +41,7 @@
   width: 100%;
   max-width: 400px;
   background: var(--bg-card);
-  color: pink;
+  color: rgb(90, 9, 10);
   border: 1px solid var(--secondary);
   border-radius: var(--radius);
   padding: 0.75rem 1rem;
@@ -203,9 +203,8 @@ footer {
 /* (main er allerede defineret ovenfor - dublet fjernet) */
 
 /* =====================
-   MOVIE GRID & CARDS
+   GAME GRID & CARDS
    ===================== */
-/* TODO !!! */
 
 .game-card {
   width: 100%;
@@ -280,7 +279,7 @@ footer {
 }
 
 /* =====================
-   MOVIE DIALOG
+   GAME DIALOG
    ===================== */
 dialog#game-dialog {
   border: none;
@@ -375,6 +374,8 @@ dialog#game-dialog::backdrop {
   margin: 0 0 1rem 0;
 }
 
+/*  FJERN ??!?!! MOVIE APP ??? 
+
 #dialog-content .movie-year {
   display: inline-block;
   background: var(--secondary-light);
@@ -410,7 +411,7 @@ dialog#game-dialog::backdrop {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
+} */
 
 @media (max-width: 768px) {
   #dialog-content .game-rating {

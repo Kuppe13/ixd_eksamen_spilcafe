@@ -4,21 +4,21 @@
 // Start app når DOM er loaded (hele HTML siden er færdig med at indlæse)
 document.addEventListener("DOMContentLoaded", initApp);
 
-// Global variabel til alle film - tilgængelig for alle funktioner
+// Global variabel til alle spil - tilgængelig for alle funktioner
 let allGames = [];
 
 // #1: Initialize the app - sæt event listeners og hent data
 function initApp() {
-  getGames(); // Hent film data fra JSON fil
+  getGames(); // Hent spil data fra JSON fil
 
   document
     .querySelector("#search-input")
     .addEventListener("input", filterGames);
   document
-    .querySelector("#genre-select1")
+    .querySelector("#category-select")
     .addEventListener("change", filterGames);
   document
-    .querySelector("#genre-select2")
+    .querySelector("#playtime-select")
     .addEventListener("change", filterGames);
   document
     .querySelector("#players-select")
@@ -37,17 +37,12 @@ async function getGames() {
   allGames = await response.json();
 
   populateGenreDropdown(); // Udfyld dropdown med genrer fra data
-  displayGames(allGames); // Vis alle film ved start
-}
-
-// Loop gennem alle film og vis hver enkelt
-for (const game of allGames) {
-  displayGame(game); // Kald displayMovie for hver film
+  displayGames(allGames); // Vis alle spil ved start
 }
 
 // #4: Render a single game card and add event listeners - lav et spil kort
 function displayGame(game) {
-  const gameList = document.querySelector("#game-list"); // Find container til film
+  const gameList = document.querySelector("#game-list"); // Find container til spil
 
   // Byg HTML struktur dynamisk - template literal med ${} til at indsætte data
   const gameHTML = `
@@ -78,19 +73,20 @@ function displayGame(game) {
     showGameModal(game); //
   });
 
-  // Tilføj keyboard support (Enter og mellemrum) for tilgængelighed
+  // Tilføj keyboard support (Enter og mellemrum) for tilgængelighed til website brug med PC
   newCard.addEventListener("keydown", function (event) {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault(); // Forhindre scroll ved mellemrum
-      showGameModal(game); //
+      showGameModal(game); 
     }
   });
 }
 
 // ===== DROPDOWN OG MODAL FUNKTIONER =====
 // #5: Udfyld genre-dropdown med alle unikke genrer fra data
+
 function populateGenreDropdown() {
-  // Players dropdown
+  // Players dropdown // Antal spillere dropdown
   const playersSelect = document.querySelector("#players-select");
   const playerCounts = new Set();
   for (const game of allGames) {
@@ -109,23 +105,26 @@ function populateGenreDropdown() {
   sortedPlayers.forEach((num) => {
     playersSelect.innerHTML += `<option value="${num}">${num} spillere</option>`;
   });
-  // Genre dropdown
-  const genreSelect = document.querySelector("#genre-select1");
+
+  // Genre dropdown // Kategori dropdown
+  const genreSelect = document.querySelector("#category-select");
   const genres = new Set();
   for (const game of allGames) {
     if (game.genre) genres.add(game.genre);
   }
+
   genreSelect.innerHTML = '<option value="all">Kategori</option>';
   genres.forEach((genre) => {
     genreSelect.innerHTML += `<option value="${genre}">${genre}</option>`;
   });
 
-  // Playtime dropdown
-  const playtimeSelect = document.querySelector("#genre-select2");
+  // Playtime dropdown // Varighed dropdown
+  const playtimeSelect = document.querySelector("#playtime-select");
   const playtimes = new Set();
   for (const game of allGames) {
     if (game.playtime) playtimes.add(game.playtime);
   }
+
   // Sort playtimes numerically
   const sortedPlaytimes = Array.from(playtimes).sort((a, b) => a - b);
   playtimeSelect.innerHTML = '<option value="all">Varighed</option>';
@@ -134,8 +133,9 @@ function populateGenreDropdown() {
   });
 }
 
-// #6: Vis game i modal dialog - popup vindue med spil detaljer
+// #6: Vis game i modal dialog - popup vindue med detaljer om spil
 function showGameModal(game) {
+
   // Find modal indhold container og byg HTML struktur dynamisk
   document.querySelector("#dialog-content").innerHTML = /*html*/ `
     <img src="${game.image}" alt="Poster af ${game.title}" class="game-poster">
@@ -144,7 +144,7 @@ function showGameModal(game) {
   <p class="game-genre">${
     Array.isArray(game.genre) ? game.genre.join(", ") : game.genre || ""
   }</p>
-      <p class="game-rating">⭐ ${game.rating}</p>
+      <p class="game-rating">⭐ ${game.raSting}</p>
       <p class="game-description">${game.description}</p>
     </div>
   `;
@@ -156,11 +156,12 @@ function showGameModal(game) {
 // ===== FILTER FUNKTIONER =====
 // #7: Ryd alle filtre - reset alle filter felter til tomme værdier
 function clearAllFilters() {
+
   // Ryd alle input felter - sæt value til tom string eller standard værdi
   document.querySelector("#search-input").value = "";
   document.querySelector("#players-select").value = "all";
-  document.querySelector("#genre-select2").value = "all";
-  document.querySelector("#genre-select1").value = "all";
+  document.querySelector("#playtime-select").value = "all";
+  document.querySelector("#category-select").value = "all";
   // Hvis du har flere filtre, tilføj dem her
 
   // Kør filtrering igen (vil vise alle film da alle filtre er ryddet)
@@ -173,8 +174,8 @@ function filterGames() {
   const searchValue = document
     .querySelector("#search-input")
     .value.toLowerCase();
-  const genre1Value = document.querySelector("#genre-select1").value;
-  const genre2Value = document.querySelector("#genre-select2").value;
+  const genre1Value = document.querySelector("#category-select").value;
+  const genre2Value = document.querySelector("#playtime-select").value;
   const playersValue = document.querySelector("#players-select")?.value;
 
   let filteredGames = allGames;
