@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", initApp);
 // Global variabel til alle spil - tilgængelig for alle funktioner
 let allGames = [];
 
-// #1: Initialize the app - sæt event listeners og hent data
+// Initialize the app - sæt event listeners og hent data
 function initApp() {
   getGames(); // Henter spil data fra JSON fil
 
@@ -73,7 +73,8 @@ function displayGame(game) {
 
 
 
-// Filter dropdown
+// FILTER DROPDOWNS
+
 
 function populateGenreDropdown() {
 
@@ -146,37 +147,95 @@ for (const game of allGames) {
 }
 const sortedAges = Array.from(ages).sort((a, b) => a - b);
 
-const originalOptions = [...moreSelect.options].map(opt => ({
-  value: opt.value,
-  text: opt.text,
-}));
+        // fungerer for alle dropdowns under "Flere filtre"
+        const originalOptions = [...moreSelect.options].map((opt) => ({
+          value: opt.value,
+          text: opt.text,
+        }));
+        // store original options on the element so other functions (clearAllFilters) can restore them
+        moreSelect._originalOptions = originalOptions;
 
-moreSelect.addEventListener("change", function () {
-  if (this.value === "age") {
-    let ageOptionsHTML = '<option value="">Vælg alder</option>';
-    sortedAges.forEach(age => {
-      ageOptionsHTML += `<option value="${age}">${age}+</option>`;
-    });
-    ageOptionsHTML += '<option value="back">← Tilbage</option>';
-    moreSelect.innerHTML = ageOptionsHTML;
-  } else if (this.value === "back") {
+
+    moreSelect.addEventListener("change", function () {
+      if (this.value === "age") {
+        let ageOptionsHTML = '<option value="">Vælg alder</option>';
+        sortedAges.forEach(age => {
+          ageOptionsHTML += `<option value="${age}">${age}+</option>`;
+        });
+        ageOptionsHTML += '<option value="back">← Tilbage</option>';
+        moreSelect.innerHTML = ageOptionsHTML;
+        moreSelect.dataset.mode = 'age';
+      } else if (this.value === "back") {
     
-    // Tilbage til original "Flere filtre" option
+    // Tilbage til original "Flere filtre" option fungerer for alle dropdowns under "Flere filtre"
     moreSelect.innerHTML = originalOptions
       .map(opt => `<option value="${opt.value}">${opt.text}</option>`)
       .join("");
-  }
-});
+    moreSelect.dataset.mode = '';
+}});
 
 
+// Language dropdown // Sprog dropdown fra "Flere filtre"
+const languages = new Set();
+for (const game of allGames) {
+  if (game.language) languages.add(game.language);
+}
+const sortedLanguages = Array.from(languages).sort();
 
+    moreSelect.addEventListener("change", function () {
+      if (this.value === "language") {
+        let languageOptionsHTML = '<option value="">Vælg sprog</option>';
+        sortedLanguages.forEach(language => {
+          languageOptionsHTML += `<option value="${language}">${language}</option>`;
+        });
+        languageOptionsHTML += '<option value="back">← Tilbage</option>';
+        moreSelect.innerHTML = languageOptionsHTML;
+        moreSelect.dataset.mode = 'language';
+      }});
 
-
+  
+// Location dropdown // Lokation dropdown fra "Flere filtre"
+const locations = new Set();
+for (const game of allGames) {
+  if (game.location) locations.add(game.location);
 } 
+const sortedLocations = Array.from(locations).sort();
+
+    moreSelect.addEventListener("change", function () {
+      if (this.value === "location") {
+        let locationOptionsHTML = '<option value="">Vælg lokation</option>';
+        sortedLocations.forEach(location => {
+          locationOptionsHTML += `<option value="${location}">${location}</option>`;
+        });
+        locationOptionsHTML += '<option value="back">← Tilbage</option>';
+        moreSelect.innerHTML = locationOptionsHTML;
+        moreSelect.dataset.mode = 'location';
+      }});
+
+
+// Rating dropdown // Rating dropdown fra "Flere filtre"
+const ratings = new Set();
+for (const game of allGames) {
+  if (game.rating) ratings.add(game.rating);
+} 
+const sortedRatings = Array.from(ratings).sort((a, b) => a - b);
+
+    moreSelect.addEventListener("change", function () {
+      if (this.value === "rating") {
+        let ratingOptionsHTML = '<option value="">Vælg rating</option>';
+        sortedRatings.forEach(rating => {
+          ratingOptionsHTML += `<option value="${rating}">${rating}</option>`;
+        });
+        ratingOptionsHTML += '<option value="back">← Tilbage</option>';
+        moreSelect.innerHTML = ratingOptionsHTML;
+        moreSelect.dataset.mode = 'rating';
+      }});
+
+}
 
 // ===== MODAL FUNKTIONER =====
 
-// #6: Vis game i modal dialog - popup vindue med detaljer om spil
+// Vis game i modal dialog - popup vindue med detaljer om spil
 function showGameModal(game) {
 
   // Find modal indhold container og byg HTML struktur dynamisk
@@ -194,33 +253,46 @@ function showGameModal(game) {
   document.querySelector("#game-dialog").showModal();
 }
 
-// ===== FILTER FUNKTIONER =====
-// #7: Rydder alle filtre - reset alle filter felter til tomme værdier
+
+// FILTER FUNKTIONER 
+
+// Rydder alle filtre - reset alle filter felter til tomme værdier
 function clearAllFilters() {
 
-  // Ryd alle input felter - sætter value til tom string eller standard værdi
+  // Rydder alle input felter - sætter value til tom string eller standard værdi
   document.querySelector("#search-input").value = "";
   document.querySelector("#players-select").value = "all";
   document.querySelector("#playtime-select").value = "all";
   document.querySelector("#category-select").value = "all";
   document.querySelector("#difficulty-select").value = "all";
-  document.querySelector("#more-select").value = "all";
-  // Hvis du har flere filtre, tilføj dem her
+
+  // Tilbage til den oprindelige "Flere filtre" og fjerner aktiv tilstand
+  const moreSelect = document.querySelector("#more-select");
+  if (moreSelect) {
+    if (moreSelect._originalOptions) {
+      moreSelect.innerHTML = moreSelect._originalOptions
+        .map((opt) => `<option value="${opt.value}">${opt.text}</option>`)
+        .join("");
+    }
+    moreSelect.dataset.mode = ""; 
+    moreSelect.value = "all"; 
+  }
 
   // Kør filtrering igen (vil vise alle spil da alle filtre er ryddet)
   filterGames();
 }
 
-// #8: Komplet filtrering med alle funktioner
+// Komplet filtrering med alle funktioner
 function filterGames() {
   
-  // Hent alle filter værdier fra input felterne
+  // Henter alle filter værdier fra input felterne
   const searchValue = document.querySelector("#search-input").value.toLowerCase();
   const categoryValue = document.querySelector("#category-select").value;
   const playtimeValue = document.querySelector("#playtime-select").value;
   const playersValue = document.querySelector("#players-select")?.value;
   const difficultyValue = document.querySelector("#difficulty-select").value;
   const moreValue = document.querySelector("#more-select").value;
+  const moreMode = document.querySelector("#more-select").dataset.mode || "";
 
   let filteredGames = allGames;
 
@@ -258,17 +330,33 @@ function filterGames() {
     game.difficulty === difficultyValue);
   }
 
-  // FILTER 6: Age - filtrer på alder (games suitable for age or younger)
-  const numAge = Number(moreValue);
-  if (numAge > 0) {
-  filteredGames = filteredGames.filter((game) => 
-    game.age && game.age <= numAge);
+  // FILTER 6/7/8/9: Handle the active "more" filter based on mode
+  if (moreMode === "age") {
+    const numAge = Number(moreValue);
+    if (numAge > 0) {
+      filteredGames = filteredGames.filter((game) => game.age && game.age <= numAge);
+    }
+  } else if (moreMode === "language") {
+    if (moreValue && moreValue !== "all") {
+      filteredGames = filteredGames.filter((game) => game.language === moreValue);
+    }
+  } else if (moreMode === "location") {
+    if (moreValue && moreValue !== "all") {
+      filteredGames = filteredGames.filter((game) => game.location === moreValue);
+    }
   }
+  else if (moreMode === "rating") {
+    if (moreValue && moreValue !== "all") {
+      filteredGames = filteredGames.filter((game) => String(game.rating) === moreValue);
+    }
+  }  
+  
 
-  // Vis de filtrerede spil
+  // Viser de filtrerede spil
 
   displayGames(filteredGames);
 }
+
 
 // RENDER GAME LIST (called after filtering or loading data)
 function displayGames(games) {
