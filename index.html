@@ -13,26 +13,35 @@
 
   <body>
     <header>
+      <div class="header-top">
+        <a href="#" class="logo">
+          <img src="./img/SC-logo-2023-transparant-BG+Small+Crop.webp" width="92" height="70" alt="Spilcafe logo"/>
+        </a>
       <h1>Spiloversigt</h1>
+      <button id="menu-btn">☰</button>
+      </div>
     </header>
 
     <main>
       <!-- Search Bar -->
       <div class="searchbar-container">
         <input id="search-input" type="search" placeholder="Søg efter brætspil" />
+        <button id="magnifier-btn" class="magnifier" type="button" aria-label="Søg">
+          <img src="img/magnifier-search-zoom-svgrepo-com.svg" width="20" height="20" alt="Søg ikon" />
+        </button>
       </div>
       <!-- Filter Bar -->
       <section class="filterbar">
-        <select id="players-select"></select>
         <select id="category-select"></select>
+        <select id="players-select"></select>
         <select id="playtime-select"></select>
+        <select id="difficulty-select"></select>
         <select id="more-select">
           <option value="all">Flere filtre</option>
           <option value="all">Alder</option>
           <option value="all">Sprog</option>
           <option value="all">Nye/ældre</option>
           <option value="all">Rating</option>
-          <option value="all">Sværhedsgrad</option>
         </select>
         <button id="clear-filters" class="clear-btn">
           <span class="btn-icon"></span>
