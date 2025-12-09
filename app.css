@@ -14,7 +14,7 @@
   --bg-card: #f2f2f2;
 
   --radius: 14px;
-  --shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
   --warning: #080808;
 }
@@ -45,7 +45,10 @@
   width: 44px;
   background: var(--bg-card);
   border: 0.5 solid none;
+  outline: px solid var(--secondary);
+  border-color: var(--secondary);
   border-radius: var(--radius);
+  box-shadow: var(--shadow);
   cursor: pointer;
 }
 
@@ -76,37 +79,8 @@
   outline: 2px solid var(--secondary);
   border-color: var(--secondary);
 }
-/* /* =====================
-   DARK MODE CSS VARIABLES
-   ===================== */
-:root {
-  /* Colors */
-  --primary: #fff9f9;
-  --secondary: white;
-  --primary-light: white;
-  --secondary-light: white;
-  --background: #fff9f9;
 
 
-  /* Text - Dark Mode Colors */
-  --text: #121618;
-  --text-light: #dadce0;
-
-  /* Backgrounds - Dark Mode */
-  --bg: #fff9f9;
-  --bg-card: white;
-
-  /* Semantic */
-  --success: #34a853;
-  --warning: #fbc02d;
-  --error: #CF6162;
-
-  /* Effects */
-  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
-  --radius: 1rem;
-  --transition: 250ms ease;
-} */
 
 /* =====================
    GLOBAL STYLES
@@ -159,12 +133,10 @@ main {
   min-width: 120px;
 }
 
-#search-input,
-#genre-select,
-#sort-select {
+#search-input, #genre-select, #sort-select {
   background: var(--bg-card);
   color: var(--text);
-  border: 1px solid var(--background);
+  border: 1px solid var(--secondary);
   border-radius: var(--radius);
   padding: 0.75rem 1rem;
   font-size: 1rem;
@@ -175,8 +147,8 @@ main {
 #search-input:focus,
 #genre-select:focus,
 #sort-select:focus {
-  outline: 2px solid var(--background);
-  border-color: var(--background);
+  outline: 2px solid var(--secondary);
+  border-color: var(--secondary);
 }
 
 #search-input::placeholder {

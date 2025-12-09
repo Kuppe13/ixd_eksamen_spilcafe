@@ -3,11 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="Marie Luise"/>
-    <meta name="description" content="Project Template" />
+    <meta name="author" content="Marie Luise Kuppe"/>
+    <meta name="description" content="Eksamens projekt" />
     <link rel="stylesheet" href="app.css" />
     <link rel="icon" href="img/favicon.ico" />
-
     <title>Spiloversigt</title>
   </head>
 
@@ -30,6 +29,7 @@
           <img src="img/magnifier-search-zoom-svgrepo-com.svg" width="20" height="20" alt="Søg ikon" />
         </button>
       </div>
+
       <!-- Filter Bar -->
       <section class="filterbar">
         <select id="category-select"></select>
@@ -56,13 +56,10 @@
     </main>
 
     <dialog id="game-dialog">
-      <div id="dialog-content"></div>
-      <button
-        id="close-dialog"
-        onclick="document.getElementById('game-dialog').close()"
-      >
-        Luk
-      </button>
+      <form method="dialog">
+        <button id="close-dialog">Luk</button>
+        <div id="dialog-content"></div>
+      </form>
     </dialog>
     <script src="app.js"></script>
   </body>
