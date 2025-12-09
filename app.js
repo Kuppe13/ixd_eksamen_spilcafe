@@ -16,6 +16,7 @@ function initApp() {
   document.querySelector("#playtime-select").addEventListener("change", filterGames);
   document.querySelector("#players-select").addEventListener("change", filterGames);
   document.querySelector("#difficulty-select").addEventListener("change", filterGames);
+  document.querySelector("#more-select").addEventListener("change", filterGames);
   document.querySelector("#clear-filters").addEventListener("click", clearAllFilters);
 }
 
@@ -31,11 +32,11 @@ async function getGames() {
   displayGames(allGames); // Viser alle spil ved start
 }
 
-// #4: Render a single game card and add event listeners - lav et spil kort
+// Laver game card
 function displayGame(game) {
-  const gameList = document.querySelector("#game-list"); // Find container til spil
+  const gameList = document.querySelector("#game-list"); 
 
-  // Byg HTML struktur dynamisk - template literal med ${} til at indsætte data
+  // Bygger HTML struktur dynamisk - template literal med ${} til at indsætte data
   const gameHTML = `
   <article class="game-card" tabindex="0">
     <img src="${game.image}"
@@ -70,8 +71,9 @@ function displayGame(game) {
   });
 }
 
-// ===== DROPDOWN OG MODAL FUNKTIONER =====
-// #5: Udfyld genre-dropdown med alle unikke genrer fra data
+
+
+// Filter dropdown
 
 function populateGenreDropdown() {
 
@@ -87,6 +89,7 @@ function populateGenreDropdown() {
     genreSelect.innerHTML += `<option value="${genre}">${genre}</option>`;
   });
 
+
   // Players dropdown // Antal spillere dropdown
   const playersSelect = document.querySelector("#players-select");
   const playerCounts = new Set();
@@ -95,9 +98,7 @@ function populateGenreDropdown() {
       game.players && typeof game.players.min === "number" && typeof game.players.max === "number") {
       for (let i = game.players.min; i <= game.players.max; i++) {
         playerCounts.add(i);
-      }
-    }
-  }
+      }}}
 
       // Sort player counts numerically
       const sortedPlayers = Array.from(playerCounts).sort((a, b) => a - b);
@@ -121,6 +122,7 @@ function populateGenreDropdown() {
         playtimeSelect.innerHTML += `<option value="${time}">${time} min.</option>`;
      });
      
+
  // Difficulty dropdown // Sværhedsgrad dropdown
   const difficultySelect = document.querySelector("#difficulty-select");
   const difficulties = new Set();
@@ -134,8 +136,43 @@ function populateGenreDropdown() {
       sortedDifficulties.forEach((level) => {
         difficultySelect.innerHTML += `<option value="${level}">${level}</option>`;
       });
-    } 
+      
 
+// Age dropdown // Alder dropdown fra "Flere filtre"
+const moreSelect = document.getElementById("more-select");
+const ages = new Set();
+for (const game of allGames) {
+  if (game.age) ages.add(game.age);
+}
+const sortedAges = Array.from(ages).sort((a, b) => a - b);
+
+const originalOptions = [...moreSelect.options].map(opt => ({
+  value: opt.value,
+  text: opt.text,
+}));
+
+moreSelect.addEventListener("change", function () {
+  if (this.value === "age") {
+    let ageOptionsHTML = '<option value="">Vælg alder</option>';
+    sortedAges.forEach(age => {
+      ageOptionsHTML += `<option value="${age}">${age}+</option>`;
+    });
+    ageOptionsHTML += '<option value="back">← Tilbage</option>';
+    moreSelect.innerHTML = ageOptionsHTML;
+  } else if (this.value === "back") {
+    
+    // Tilbage til original "Flere filtre" option
+    moreSelect.innerHTML = originalOptions
+      .map(opt => `<option value="${opt.value}">${opt.text}</option>`)
+      .join("");
+  }
+});
+
+
+
+
+
+} 
 
 // ===== MODAL FUNKTIONER =====
 
@@ -167,6 +204,7 @@ function clearAllFilters() {
   document.querySelector("#playtime-select").value = "all";
   document.querySelector("#category-select").value = "all";
   document.querySelector("#difficulty-select").value = "all";
+  document.querySelector("#more-select").value = "all";
   // Hvis du har flere filtre, tilføj dem her
 
   // Kør filtrering igen (vil vise alle spil da alle filtre er ryddet)
@@ -182,22 +220,26 @@ function filterGames() {
   const playtimeValue = document.querySelector("#playtime-select").value;
   const playersValue = document.querySelector("#players-select")?.value;
   const difficultyValue = document.querySelector("#difficulty-select").value;
+  const moreValue = document.querySelector("#more-select").value;
 
   let filteredGames = allGames;
 
   // FILTER 1: Søgetekst - filtrer på spil titel
-  if (searchValue) {filteredGames = filteredGames.filter((game) => 
+  if (searchValue) {
+    filteredGames = filteredGames.filter((game) => 
     game.title.toLowerCase().includes(searchValue)
     );
   }
 
   // FILTER 2: Category - filtrer på valgt kategori (string match)
-  if (categoryValue !== "all") {filteredGames = filteredGames.filter((game) => 
+  if (categoryValue !== "all") {
+    filteredGames = filteredGames.filter((game) => 
     game.genre === categoryValue);
   }
 
   // FILTER 3: Playtime - filtrer på valgt spilletid (playtime in minutes)
-  if (playtimeValue !== "all") {filteredGames = filteredGames.filter((game) => 
+  if (playtimeValue !== "all") {
+    filteredGames = filteredGames.filter((game) => 
     String(game.playtime) === playtimeValue
     );
   }
@@ -210,9 +252,17 @@ function filterGames() {
     );
   }
 
-  // Filter 5: Difficulty - filtrer på sværhedsgrad (string match)
-  if (difficultyValue !== "all") {filteredGames = filteredGames.filter((game) => 
+  // FILTER 5: Difficulty - filtrer på sværhedsgrad (string match)
+  if (difficultyValue !== "all") {
+    filteredGames = filteredGames.filter((game) => 
     game.difficulty === difficultyValue);
+  }
+
+  // FILTER 6: Age - filtrer på alder (games suitable for age or younger)
+  const numAge = Number(moreValue);
+  if (numAge > 0) {
+  filteredGames = filteredGames.filter((game) => 
+    game.age && game.age <= numAge);
   }
 
   // Vis de filtrerede spil
@@ -232,4 +282,4 @@ function displayGames(games) {
   for (const game of games) {
     displayGame(game);
   }
-}
+};

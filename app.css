@@ -327,9 +327,8 @@ footer {
 }
 
 
-/* =====================
-   GAME DIALOG
-   ===================== */
+/* Game Dialog */
+
 dialog#game-dialog {
   border: none;
   border-radius: var(--radius);
