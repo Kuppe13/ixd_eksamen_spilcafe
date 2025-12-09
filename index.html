@@ -14,7 +14,7 @@
     <header>
       <div class="header-top">
         <a href="#" class="logo">
-          <img src="./img/SC-logo-2023-transparant-BG+Small+Crop.webp" width="72" height="50" alt="Spilcafe logo"/>
+          <img src="./img/sc-logo-2023-transparant-bg.webp" width="72" height="50" alt="Spilcafe logo"/>
         </a>
       <h1>Spiloversigt</h1>
       <button id="menu-btn">☰</button>
@@ -31,7 +31,7 @@
       </div>
 
       <!-- Filter Bar -->
-      <section class="filterbar">
+      <div class="filterbar">
         <select id="category-select"></select>
         <select id="players-select"></select>
         <select id="playtime-select"></select>
@@ -48,12 +48,12 @@
           <span class="btn-icon"></span>
           <span class="btn-text">Ryd filtre</span>
         </button>
-      </section>
+      </div>
 
       <!-- Game List -->
-      <section id="game-list">
+      <div id="game-list">
         <!-- Game cards will be rendered here by JavaScript -->
-      </section>
+      </div>
     </main>
 
     <dialog id="game-dialog">
@@ -62,6 +62,11 @@
         <div id="dialog-content"></div>
       </form>
     </dialog>
+
+    <footer>
+      <p>2025, Marie-Luise Kuppe</p>
+    </footer>
+
     <script src="app.js"></script>
   </body>
 </html>

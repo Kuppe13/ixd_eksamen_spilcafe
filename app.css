@@ -5,11 +5,11 @@
   --primary-light: #fbf1f1;
   --secondary-light: #ffffff;
 
-  /* Text - Dark Mode Colors */
+  /* Text */
   --text: #110101;
   --text-light: #a4a4a4;
 
-  /* Backgrounds - Dark Mode */
+  /* Backgrounds */
   --bg: #fff9f9;
   --bg-card: #f2f2f2;
 
@@ -49,23 +49,11 @@ body {
   height: 100%;
 }
 
-.header {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  padding: 1rem 1.25rem 1rem 1.25rem;
-  box-shadow: var(--shadow-sm);
-  position: relative;
-  z-index: 1000;
-  margin-bottom: -7rem;
-}
-
 .logo{
   justify-self: start;
   display: inline-block;
   width: 60px;
   height: 60px;
-  cursor: pointer;
 }
 
 #menu-btn{
@@ -114,16 +102,15 @@ body {
 }
 
 /* /* Magnifier button: samme højde og input som søg-bar */
-#magnifier-btn,
-.searchbar-container .magnifier {
+#magnifier-btn, .searchbar-container .magnifier {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   height: 44px;
   width: 44px;
   background: var(--bg-card);
-  border: 0.5 solid none;
-  outline: px solid var(--secondary);
+  border: 1px solid var(--secondary);
+  outline: none;
   border-color: var(--secondary);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -219,10 +206,13 @@ main {
 /* Footer */
 
 footer {
-  background: var(--primary);
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background: #f3d7d7;
   color: var(--text);
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 1rem 1rem;
   margin-top: 4rem;
 }
 
@@ -341,7 +331,7 @@ dialog#game-dialog::backdrop {
   right: 1rem;
   background: rgba(255, 255, 255, 0.9);
   color: var(--text-light);
-  border: none;
+  border: 1px solid var(--secondary);
   border-radius: 50%;
   width: 2.5rem;
   height: 2.5rem;
@@ -456,7 +446,7 @@ dialog#game-dialog::backdrop {
   background: var(--secondary-light);
   border-radius: var(--radius);
   border: 2px solid var(--secondary);
-  font-style: poppins, sans-serif;
+  font-family: poppins, sans-serif;
 }
 
 /* =====================
