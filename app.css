@@ -200,13 +200,24 @@ footer {
   margin-top: 4rem;
 }
 
+
 /* =====================
    GAME GRID & CARDS
    ===================== */
 
+/* Grid for game cards: default mobile-friendly 2 columns */
+#game-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
+  gap: 1rem;
+  padding: 1.5rem 0;
+  justify-items: center;
+}
+
 .game-card {
-  width: 174px;
-  height: 224px;
+  width: 100%;
+  max-width: 174px;
+  min-height: 140px; 
   background: var(--bg-card);
   border-radius: 16px;
   box-shadow: var(--shadow);
@@ -230,8 +241,11 @@ footer {
 .game-poster {
   justify-content: center;
   align-self: center;
+  width: 100%;
   max-width: 158px;
+  height: 140px;
   max-height: 140px;
+  object-fit: cover;
   border-bottom: 1px solid;
   border-bottom-color: rgba(150, 122, 122, 0.5);
 }
@@ -241,13 +255,12 @@ footer {
 }
 
 .game-info {
-  padding: 1.5rem;
+  padding: 1rem 0.5rem 0.5rem 1rem; /* tighter padding for mobile */
   position: relative;
 }
 
 .game-info h3 {
   font-size: clamp(1.125rem, 2vw, 1.375rem);
-  font-weight: 600;
   color: var(--text);
   display: flex;
   align-items: flex-start;
@@ -263,12 +276,11 @@ footer {
 
 .game-rating {
   color: var(--warning);
-  font-weight: 600;
+  font-weight: 450;
   display: flex;
-  gap: 0.25rem;
   position: absolute;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: 1.25rem;
+  right: 0.7rem;
   margin-bottom: 0;
 }
 

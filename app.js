@@ -46,19 +46,17 @@ function displayGame(game) {
 
   // Byg HTML struktur dynamisk - template literal med ${} til at indsætte data
   const gameHTML = `
-  <article class="game-card" tabindex ="0">
-    <img src = "${game.image}"
-      alt = "Poster of "${game.title}"
-      class= "game-poster"/>
-      <div class= "game-info">
+  <article class="game-card" tabindex="0">
+    <img src="${game.image}"
+      alt="Poster of ${game.title}"
+      class="game-poster" />
+      <div class="game-info">
       <h3>${game.title}</h3>
-      
 
-      
-      <p class= "game-rating">⭐ ${game.rating}</p>
-      <p class= "game-playtime">Ca. ${game.playtime} min.</p>
-      <p class= "game-players">${game.players.min} - ${game.players.max} spillere</p>
-      <p class= "game-genre">${game.genre}</p>
+      <p class="game-rating">⭐ ${game.rating}</p>
+      <p class="game-playtime">Ca. ${game.playtime} min.</p>
+      <p class="game-players">${game.players.min} - ${game.players.max} spillere</p>
+      <p class="game-genre">${game.genre}</p>
       </div>
   </article>`;
 
@@ -140,11 +138,9 @@ function showGameModal(game) {
   document.querySelector("#dialog-content").innerHTML = /*html*/ `
     <img src="${game.image}" alt="Poster af ${game.title}" class="game-poster">
     <div class="dialog-details">
-      <h2>${game.title} 
-  <p class="game-genre">${
-    Array.isArray(game.genre) ? game.genre.join(", ") : game.genre || ""
-  }</p>
-      <p class="game-rating">⭐ ${game.raSting}</p>
+      <h2>${game.title}</h2>
+      <p class="game-genre">${Array.isArray(game.genre) ? game.genre.join(", ") : game.genre || ""}</p>
+      <p class="game-rating">⭐ ${game.rating}</p>
       <p class="game-description">${game.description}</p>
     </div>
   `;
