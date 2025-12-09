@@ -6,8 +6,8 @@
   --secondary-light: #ffffff;
 
   /* Text - Dark Mode Colors */
-  --text: #000000;
-  --text-light: #2f2f2f;
+  --text: #110101;
+  --text-light: #a4a4a4;
 
   /* Backgrounds - Dark Mode */
   --bg: #fff9f9;
@@ -157,7 +157,7 @@ main {
   margin-bottom: 1rem;
 }
 
-/* Shared look for all selects in the filterbar */
+/* Styling af filterbars */
 .filterbar select {
   width:100%;
   display: flex;
@@ -194,11 +194,12 @@ main {
   min-width: 120px;
 }
 
+ /* Søg bar */
 #search-input, 
 #genre-select, 
 #sort-select {
   background: var(--bg-card);
-  color: var(--text);
+  color: var(--text-light);
   border: 1px solid var(--secondary);
   border-radius: var(--radius);
   padding: 0.75rem 1rem;
@@ -207,12 +208,15 @@ main {
   box-shadow: var(--shadow);
 }
 
+/* Når man klikker på søg baren for søge efter spil */
 #search-input:focus,
 #genre-select:focus,
 #sort-select:focus {
   outline: 2px solid var(--secondary);
   border-color: var(--secondary);
 }
+
+/* Kan ingen forskel se her?? 
 
 #search-input::placeholder {
   color: var(--text-light);
@@ -223,7 +227,7 @@ main {
 #sort-select {
   min-width: 160px;
   cursor: pointer;
-}
+} */
 
 /* Footer */
 
@@ -236,11 +240,9 @@ footer {
 }
 
 
-/* =====================
-   GAME GRID & CARDS
-   ===================== */
+/* Game grid & cards */
 
-/* Grid for cards: mobile-friendly with 2 columns */
+/* Grid for cards: lavet til mobil med 2 kolonner */
 #game-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(140px, 1fr));
@@ -249,6 +251,7 @@ footer {
   justify-items: center;
 }
 
+/* Styling af game card */
 .game-card {
   width: 100%;
   max-width: 174px;
@@ -262,7 +265,7 @@ footer {
   cursor: pointer;
 }
 
-.game-card:hover {
+ .game-card:hover {
   transform: translateY(-8px) scale(1.02);
   box-shadow: var(--shadow-lg);
   border-color: var(--secondary);
@@ -271,16 +274,17 @@ footer {
 .game-card:focus {
   outline: 3px solid var(--secondary);
   outline-offset: 2px;
-}
+} 
 
+/* Sektionen for billedet på card */
 .game-poster {
   justify-content: center;
   align-self: center;
   width: 100%;
-  max-width: 158px;
-  height: 140px;
+  max-width: 156px;
+  height: 130px;
   max-height: 140px;
-  object-fit: cover;
+  object-fit: fill;
   border-bottom: 1px solid;
   border-bottom-color: rgba(150, 122, 122, 0.5);
 }
@@ -290,10 +294,11 @@ footer {
 }
 
 .game-info {
-  padding: 1rem 0.5rem 0.5rem 1rem; /* tighter padding for mobile */
+  padding: 1rem 0.5rem 0.5rem 1rem;
   position: relative;
 }
 
+/* Sektion for titel text på card */
 .game-info h3 {
   font-size: clamp(1.125rem, 2vw, 1.375rem);
   color: var(--text);
@@ -303,21 +308,24 @@ footer {
   gap: 0.5rem;
 }
 
-.game-genre {
-  color: black;
-  font-size: 0.9rem;
-  margin-bottom: 0.75rem;
+.game-playtime {
+  color: var(--text);
+  font-size: 1rem;
+  margin: 0rem;
 }
 
-.game-rating {
-  color: var(--warning);
-  font-weight: 450;
-  display: flex;
-  position: absolute;
-  bottom: 1.25rem;
-  right: 0.7rem;
-  margin-bottom: 0;
+.game-players {
+  color: var(--text);
+  font-size: 1rem;
+  margin: 0rem;
 }
+
+.game-genre {
+  color: #515151;
+  font-size: 0.8rem;
+  margin-bottom: 0rem;
+}
+
 
 /* =====================
    GAME DIALOG
