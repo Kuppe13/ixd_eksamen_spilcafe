@@ -36,7 +36,7 @@ async function getGames() {
 function displayGame(game) {
   const gameList = document.querySelector("#game-list"); 
 
-  // Bygger HTML struktur dynamisk - template literal med ${} til at indsætte data
+  // Bygger HTML struktur dynamisk 
   const gameHTML = `
   <article class="game-card" tabindex="0">
     <img src="${game.image}"
@@ -65,12 +65,11 @@ function displayGame(game) {
   // Tilføjet keyboard support (Enter og mellemrum) for tilgængelighed til website brug med PC
   newCard.addEventListener("keydown", function (event) {
     if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault(); // Forhindre scroll ved mellemrum
+      event.preventDefault(); // Forhindrer scroll ved mellemrum
       showGameModal(game); 
     }
   });
 }
-
 
 
 // FILTER DROPDOWNS

@@ -449,9 +449,7 @@ dialog#game-dialog::backdrop {
   font-family: poppins, sans-serif;
 }
 
-/* =====================
-   RESPONSIVE & ACCESSIBILITY
-   ===================== */
+/* RESPONSIVE & ACCESSIBILITY */
 @media (min-width: 600px) {
   #game-list {
     display: grid;
